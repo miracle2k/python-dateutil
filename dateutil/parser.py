@@ -294,6 +294,7 @@ class parser(object):
 
     def parse(self, timestr, default=None,
                     ignoretz=False, tzinfos=None,
+                    pastweekdays=False,
                     **kwargs):
         if not default:
             default = datetime.datetime.now().replace(hour=0, minute=0,
@@ -309,7 +310,8 @@ class parser(object):
                 repl[attr] = value
         ret = default.replace(**repl)
         if res.weekday is not None and not res.day:
-            ret = ret+relativedelta.relativedelta(weekday=res.weekday)
+            wd = relativedelta.weekdays[res.weekday](pastweekdays and -1 or +1)
+            ret = ret+relativedelta.relativedelta(weekday=wd)
         if not ignoretz:
             if callable(tzinfos) or tzinfos and res.tzname in tzinfos:
                 if callable(tzinfos):
