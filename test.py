@@ -3044,6 +3044,12 @@ class ParserTest(unittest.TestCase):
         self.assertEqual(parse("2003", default=self.default),
                          datetime(2003, 9, 25))
 
+    def testDateCommandFormatStrip12(self):
+        self.assertEqual(parse("02.08.", default=self.default, dayfirst=True),
+                         datetime(2003, 8, 2))
+        self.assertEqual(parse("08.02.", default=self.default, dayfirst=False),
+                         datetime(2003, 8, 2))
+
     def testDateRCommandFormat(self):
         self.assertEqual(parse("Thu, 25 Sep 2003 10:49:41 -0300"),
                          datetime(2003, 9, 25, 10, 49, 41,

@@ -472,7 +472,7 @@ class parser(object):
                                 else:
                                     return None
                             i += 1
-                            if i < len_l and l[i] == sep:
+                            if i < len_l and l[i] == sep and i+1<len(l):
                                 # We have three members
                                 i += 1
                                 value = info.month(l[i])
